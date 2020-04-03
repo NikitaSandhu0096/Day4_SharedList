@@ -43,10 +43,9 @@ public class LocationActivity extends AppCompatActivity {
                     edtPostal.setError("Please enter postal code");
                 } else {
                     Intent locint = new Intent(LocationActivity.this, MainActivity.class);
-                  //  Bundle lbun = new Bundle();
-                  //  lbun.putString("street", street);
-                  //  lbun.putString("city", city);
-                  //  lbun.putString("postal", postal);
+                    locint.putExtra("street", street);
+                    locint.putExtra("city", city);
+                    locint.putExtra("postal", postal);
                     startActivity(locint);
                 }
             }

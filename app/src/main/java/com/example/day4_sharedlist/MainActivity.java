@@ -1,8 +1,10 @@
 package com.example.day4_sharedlist;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -50,6 +52,11 @@ public class MainActivity extends AppCompatActivity {
 
         ActionBar actBar =getSupportActionBar();
         actBar.setTitle("Complaint Form");
+
+        Intent rInt = getIntent();
+        final String a = rInt.getStringExtra("street");
+        final String b = rInt.getStringExtra("city");
+        final String c = rInt.getStringExtra("postal");
 
         rtitle = findViewById(R.id.radioGroup);
         edtfName = findViewById(R.id.editText);
@@ -148,21 +155,39 @@ public class MainActivity extends AppCompatActivity {
                 } else if(desc.isEmpty()){
                     edtdesc.setError("Please enter description");
                 }else {
-                    Intent sint = new Intent(MainActivity.this, ComplaintSummaryActivity.class);
-                    Bundle sbun = new Bundle();
-                    sbun.putString("title", title);
-                    sbun.putString("fname", fname);
-                    sbun.putString("lname", lname);
+                    AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+                    alert.setCancelable(false);
+                    alert.setTitle("Are you sure you want to send data back?");
+                    alert.setMessage("Upper Cased : "+ a + b + c);
+                    alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    AlertDialog aDialog = alert.create();
+                    aDialog.show();
+                   // Intent sint = new Intent(MainActivity.this, ComplaintSummaryActivity.class);
+                   // Bundle sbun = new Bundle();
+                   // sbun.putString("title", title);
+                   // sbun.putString("fname", fname);
+                   // sbun.putString("lname", lname);
                    // sbun.putString("empStat",empStat);
                    // sbun.putString("empD", empD);
                    // sbun.putString("loc", );
-                    sbun.putString("email", email);
-                    sbun.putString("country", country);
-                    sbun.putString("date", date);
+                   // sbun.putString("email", email);
+                   // sbun.putString("country", country);
+                   // sbun.putString("date", date);
                     //sbun.putString("issue1", issue1);
-                    sbun.putString("rating", rate);
-                    sbun.putString("desc", desc);
-                    startActivity(sint);
+                   // sbun.putString("rating", rate);
+                   // sbun.putString("desc", desc);
+                   // startActivity(sint);
                 }
             }
         });
