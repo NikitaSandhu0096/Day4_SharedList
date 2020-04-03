@@ -30,16 +30,16 @@ public class MainActivity extends AppCompatActivity {
     private String[] issueList;
     private ArrayAdapter<String> issueAdapter;
 
-    private RadioGroup title;
+    private RadioGroup rtitle;
 
-    private EditText fName;
-    private EditText lName;
-    private EditText email;
-    private EditText country;
-    private EditText date;
-    private EditText desc;
+    private EditText edtfName;
+    private EditText edtlName;
+    private EditText edtemail;
+    private EditText edtcountry;
+    private EditText edtdate;
+    private EditText edtdesc;
 
-    private RatingBar rate;
+    private RatingBar rbrate;
 
     private Button btnsubmit;
 
@@ -51,23 +51,14 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actBar =getSupportActionBar();
         actBar.setTitle("Complaint Form");
 
-        title = findViewById(R.id.radioGroup);
-        fName = findViewById(R.id.editText);
-        lName = findViewById(R.id.editText2);
-        email = findViewById(R.id.editText6);
-        country = findViewById(R.id.editText7);
-        date = findViewById(R.id.editText8);
-        rate = findViewById(R.id.ratingBar);
-        desc = findViewById(R.id.editText9);
-
-        btnsubmit = findViewById(R.id.button3);
-        btnsubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent sint= new Intent(MainActivity.this, ComplaintSummaryActivity.class);
-                startActivity(sint);
-            }
-        });
+        rtitle = findViewById(R.id.radioGroup);
+        edtfName = findViewById(R.id.editText);
+        edtlName = findViewById(R.id.editText2);
+        edtemail = findViewById(R.id.editText6);
+        edtcountry = findViewById(R.id.editText7);
+        edtdate = findViewById(R.id.editText8);
+        rbrate = findViewById(R.id.ratingBar);
+        edtdesc = findViewById(R.id.editText9);
 
         empStatus = findViewById(R.id.spinner1);
         empStatusList = new String[]{
@@ -129,6 +120,50 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+
+        btnsubmit = findViewById(R.id.button3);
+        btnsubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String title = rtitle.toString();
+                String fname = edtfName.getText().toString().trim();
+                String lname = edtlName.getText().toString().trim();
+                String email = edtemail.getText().toString().trim();
+                String country = edtcountry.getText().toString().trim();
+                String date = edtdate.getText().toString().trim();
+                String rate = rbrate.toString();
+                String desc = edtdesc.getText().toString().trim();
+                if (fname.isEmpty()) {
+                    edtfName.setError("Please enter First Name");
+                } else if (lname.isEmpty()) {
+                    edtlName.setError("Please enter Last Name");
+                } else if (email.isEmpty()) {
+                    edtemail.setError("Please enter Email");
+                } else if (country.isEmpty()){
+                    edtcountry.setError("Please enter country code/ cell phone number");
+                }else if(date.isEmpty()){
+                    edtdate.setError("Please enter a date");
+                } else if(desc.isEmpty()){
+                    edtdesc.setError("Please enter description");
+                }else {
+                    Intent sint = new Intent(MainActivity.this, ComplaintSummaryActivity.class);
+                    Bundle sbun = new Bundle();
+                    sbun.putString("title", title);
+                    sbun.putString("fname", fname);
+                    sbun.putString("lname", lname);
+                   // sbun.putString("empStat",empStat);
+                   // sbun.putString("empD", empD);
+                   // sbun.putString("loc", );
+                    sbun.putString("email", email);
+                    sbun.putString("country", country);
+                    sbun.putString("date", date);
+                    //sbun.putString("issue1", issue1);
+                    sbun.putString("rating", rate);
+                    sbun.putString("desc", desc);
+                    startActivity(sint);
+                }
             }
         });
     }
