@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         date = findViewById(R.id.editText8);
         rate = findViewById(R.id.ratingBar);
         desc = findViewById(R.id.editText9);
+
         btnsubmit = findViewById(R.id.button3);
         btnsubmit.setOnClickListener(new View.OnClickListener() {
             @Override
