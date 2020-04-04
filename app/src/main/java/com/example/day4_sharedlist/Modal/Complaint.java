@@ -10,14 +10,14 @@ public class Complaint implements Serializable {
     private String designation;
     private String location;
     private String email;
-    private int country;
-    private int date;
+    private String country;
+    private String date;
     private String issue;
     private String rating;
     private String description;
 
     public Complaint(String title, String firstName, String lastName, String empStatus,
-                     String designation, String location, String email, int country,  int date,
+                     String designation, String location, String email, String country, String date,
                      String issue, String rating, String description){
         this.title = title;
         this.firstName = firstName;
@@ -89,19 +89,17 @@ public class Complaint implements Serializable {
         this.email = email;
     }
 
-    public int getcountry(){
-        return country;
-    }
+    public String getcountry(){ return country; }
 
-    public void setCountry(int country){
+    public void setCountry(String country){
         this.country = country;
     }
 
-    public int getDate(){
+    public String getDate(){
         return date;
     }
 
-    public void setDate(int date){
+    public void setDate(String date){
         this.date = date;
     }
 
@@ -128,4 +126,5 @@ public class Complaint implements Serializable {
     public void setDescription(String description){
         this.description = description;
     }
+
 }
