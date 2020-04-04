@@ -36,6 +36,6 @@ public class ComplaintSummaryActivity extends AppCompatActivity {
         txtDate = findViewById(R.id.textView12);
         txtIssue = findViewById(R.id.textView13);
         txtRating = findViewById(R.id.textView14);
-        txtDesc=findViewById(R.id.textView15);
+        txtDesc = findViewById(R.id.textView15);
     }
 }

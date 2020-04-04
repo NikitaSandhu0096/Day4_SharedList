@@ -3,7 +3,6 @@ package com.example.day4_sharedlist;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,9 +11,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RatingBar;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import com.example.day4_sharedlist.Modal.Complaint;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,18 +56,65 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actBar =getSupportActionBar();
         actBar.setTitle("Complaint Form");
 
-        Intent rInt = getIntent();
+        final Intent rInt = getIntent();
         final String a = rInt.getStringExtra("street");
         final String b = rInt.getStringExtra("city");
         final String c = rInt.getStringExtra("postal");
 
         rtitle = findViewById(R.id.radioGroup);
+
+        rtitle.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                String rgtitle = "";
+                switch (checkedId){
+                    case R.id.radioButton:
+                        rgtitle = "Mr.";
+                        Toast.makeText(MainActivity.this, rgtitle, Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.radioButton2:
+                        rgtitle = "Mrs.";
+                        Toast.makeText(MainActivity.this, rgtitle, Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.radioButton3:
+                        rgtitle = "Ms.";
+                        Toast.makeText(MainActivity.this, rgtitle, Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.radioButton4:
+                        rgtitle = "Miss";
+                        Toast.makeText(MainActivity.this, rgtitle, Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.radioButton5:
+                        rgtitle = "Dr.";
+                        Toast.makeText(MainActivity.this, rgtitle, Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.radioButton6:
+                        rgtitle= "Sir";
+                        Toast.makeText(MainActivity.this, rgtitle, Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.radioButton7:
+                        rgtitle = "Lord";
+                        Toast.makeText(MainActivity.this, rgtitle, Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        });
+
         edtfName = findViewById(R.id.editText);
         edtlName = findViewById(R.id.editText2);
         edtemail = findViewById(R.id.editText6);
         edtcountry = findViewById(R.id.editText7);
         edtdate = findViewById(R.id.editText8);
+
         rbrate = findViewById(R.id.ratingBar);
+        rbrate.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                String rbrating = String.valueOf(rating);
+                Toast.makeText(MainActivity.this, String.valueOf(rating), Toast.LENGTH_SHORT).show();
+            }
+        });
+
         edtdesc = findViewById(R.id.editText9);
 
         empStatus = findViewById(R.id.spinner1);
@@ -134,14 +184,13 @@ public class MainActivity extends AppCompatActivity {
         btnsubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String title = rtitle.toString();
                 String fname = edtfName.getText().toString().trim();
                 String lname = edtlName.getText().toString().trim();
                 String email = edtemail.getText().toString().trim();
                 String country = edtcountry.getText().toString().trim();
                 String date = edtdate.getText().toString().trim();
-                String rate = rbrate.toString();
                 String desc = edtdesc.getText().toString().trim();
+
                 if (fname.isEmpty()) {
                     edtfName.setError("Please enter First Name");
                 } else if (lname.isEmpty()) {
@@ -155,39 +204,30 @@ public class MainActivity extends AppCompatActivity {
                 } else if(desc.isEmpty()){
                     edtdesc.setError("Please enter description");
                 }else {
-                    AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
-                    alert.setCancelable(false);
-                    alert.setTitle("Are you sure you want to send data back?");
-                    alert.setMessage("Upper Cased : "+ a + b + c);
-                    alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    });
-                    AlertDialog aDialog = alert.create();
-                    aDialog.show();
-                   // Intent sint = new Intent(MainActivity.this, ComplaintSummaryActivity.class);
-                   // Bundle sbun = new Bundle();
-                   // sbun.putString("title", title);
-                   // sbun.putString("fname", fname);
-                   // sbun.putString("lname", lname);
-                   // sbun.putString("empStat",empStat);
-                   // sbun.putString("empD", empD);
-                   // sbun.putString("loc", );
-                   // sbun.putString("email", email);
-                   // sbun.putString("country", country);
-                   // sbun.putString("date", date);
-                    //sbun.putString("issue1", issue1);
-                   // sbun.putString("rating", rate);
-                   // sbun.putString("desc", desc);
-                   // startActivity(sint);
+                   // Complaint tempObj = new Complaint();
+
+
+                   // AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+                   // alert.setCancelable(false);
+                   // alert.setTitle("Are you sure you want to send data back?");
+                   // alert.setMessage("Upper Cased : "+ a + b + c);
+                   // alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                   //     @Override
+                   //     public void onClick(DialogInterface dialog, int which) {
+                     //       dialog.dismiss();
+                       // }
+                   // });
+                    //alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                      //  @Override
+                        //public void onClick(DialogInterface dialog, int which) {
+                         //   dialog.cancel();
+                       // }
+                   // });
+                    //AlertDialog aDialog = alert.create();
+                    //aDialog.show();
+                    Intent sint = new Intent(MainActivity.this, ComplaintSummaryActivity.class);
+
+                    startActivity(sint);
                 }
             }
         });
